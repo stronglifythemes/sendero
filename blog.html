@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<meta name="builder" content="Stronglify">
+<link rel="icon" type="image/x-icon" href="https://media.stronglify.com/295/favicon-sendero-1795216597.svg">
+<title>Diario · Sendero</title>
+<meta name="description" content="Notas sobre cómo se hizo Sendero.">
+<meta name="robots" content="index">
+<link rel="canonical" href="https://stronglifythemes.github.io/blog.html"><style>
+html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type=button],[type=reset],[type=submit]{-webkit-appearance:button}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}
+fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}img{max-width:100%;height:auto}
+</style><style>
+:root { --musgo:#1e2b1c; --hoja:#3f6b2d; --helecho:#8fbf6a; --tierra:#9a7a54; --crema:#f3efe4; --serif:"Fraunces",Georgia,serif; --sans:"Work Sans",system-ui,sans-serif; --pad:clamp(1rem,4vw,3rem); }
+*,*::before,*::after { box-sizing:border-box; }
+body.sendero { margin:0; background:var(--musgo); color:var(--crema); font-family:var(--sans); }
+.sendero a { color:inherit; }
+.sd-header { position:sticky; top:0; z-index:20; display:flex; justify-content:space-between; align-items:center; gap:1rem; width:100%; padding:.9rem var(--pad); background:#1e2b1cf0; border-bottom:1px solid #8fbf6a40; }
+.sd-marca { font-family:var(--serif); font-weight:700; font-size:1.6rem; letter-spacing:-.02em; text-decoration:none; color:var(--helecho); }
+.sd-header nav, .sd-footer nav { display:flex; flex-wrap:wrap; gap:clamp(.8rem,2.5vw,1.8rem); }
+.sd-header nav a, .sd-footer nav a { text-decoration:none; font-weight:600; }
+.sd-header nav a:hover, .sd-footer nav a:hover { color:var(--helecho); }
+.sd-solo { margin:0; }
+.sd-escena { position:relative; width:100%; height:calc(100svh - 3.9rem); background:#000; overflow:hidden; }
+.sd-escena canvas { display:block; width:100%; height:100%; object-fit:cover; cursor:crosshair; outline:none; }
+.sd-escena canvas:focus-visible { box-shadow:inset 0 0 0 3px var(--helecho); }
+.sd-panel { position:absolute; top:.9rem; right:.9rem; z-index:3; display:flex; flex-wrap:wrap; gap:.5rem; justify-content:flex-end; }
+.sd-horas { display:flex; }
+.sd-panel button { font:600 .85rem var(--sans); color:var(--crema); background:#1e2b1ccc; border:1px solid #8fbf6a66; padding:.5rem .85rem; cursor:pointer; backdrop-filter:blur(4px); }
+.sd-horas button + button { border-left:0; }
+.sd-panel button[aria-pressed="true"] { background:var(--helecho); color:var(--musgo); border-color:var(--helecho); }
+.sd-panel button:hover { border-color:var(--helecho); }
+.sd-ayuda { position:absolute; left:.9rem; bottom:.9rem; z-index:3; margin:0; padding:.45rem .8rem; font-size:.85rem; background:#1e2b1cb3; border-radius:.3rem; }
+.sd-tactil { display:none; }
+@media (hover:none) and (pointer:coarse) {
+  .sd-ayuda { display:none; }
+  .sd-tactil { display:block; position:absolute; left:1rem; bottom:1rem; z-index:3; }
+  .sd-stick { width:8.5rem; height:8.5rem; border-radius:50%; border:2px solid var(--helecho); background:radial-gradient(circle,#8fbf6a40 0 30%,transparent 31%); touch-action:none; }
+}
+.sd-footer { padding:clamp(3rem,7vw,5rem) var(--pad) 2rem; background:#141d13; border-top:1px solid #8fbf6a40; }
+.sd-footer p { margin:0 0 2.5rem; max-width:22ch; font-family:var(--serif); font-size:clamp(1.9rem,4.5vw,3.6rem); line-height:1.05; }
+.sd-footer > div { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; padding-top:1.4rem; border-top:1px solid #8fbf6a30; }
+.sd-cabecera { padding:clamp(3rem,8vw,6rem) var(--pad) clamp(2rem,5vw,3rem); }
+.sd-cabecera h1 { margin:0; font-family:var(--serif); font-size:clamp(3rem,10vw,8rem); line-height:.9; color:var(--helecho); }
+.sd-cabecera p { margin:1rem 0 0; max-width:40ch; font-size:clamp(1.1rem,2vw,1.4rem); }
+.sd-blog { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr)); gap:1rem; padding:0 var(--pad) clamp(3rem,8vw,6rem); }
+.sd-entrada { display:grid; gap:.6rem; align-content:start; padding:1.6rem; background:#26361f; border:1px solid #8fbf6a30; text-decoration:none; transition:border-color .2s; }
+.sd-entrada:hover { border-color:var(--helecho); }
+.sd-entrada span { font-size:.85rem; color:var(--tierra); font-weight:600; }
+.sd-entrada h2 { margin:0; font-family:var(--serif); font-size:clamp(1.5rem,2.6vw,2rem); }
+.sd-entrada p { margin:0; line-height:1.55; opacity:.9; }
+.sd-prosa { width:min(calc(100% - 2rem),46rem); margin:0 auto clamp(3rem,8vw,6rem); font-size:clamp(1.05rem,1.6vw,1.2rem); line-height:1.75; }
+.sd-prosa h2 { margin:2rem 0 .5rem; font-family:var(--serif); font-size:clamp(1.7rem,3vw,2.4rem); color:var(--helecho); }
+.sd-blank { min-height:40vh; padding-top:2rem; }
+</style><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Work+Sans:wght@400;600&display=swap" rel="stylesheet"></head>
+<body class="sendero">
+  <header class="sd-header">
+  <a class="sd-marca" href="./">Sendero</a>
+  <nav aria-label="Navegación principal">
+    
+    <a href="./">Caminar</a>
+    
+    <a href="blog.html">Diario</a>
+    
+    <a href="acerca-de.html">Acerca de</a>
+    
+    <a href="contacto.html">Contacto</a>
+    
+  </nav>
+</header>
+
+<main class="sd-pagina">
+  <section class="sd-cabecera"><h1>Diario</h1><p>Notas desde el bosque.</p></section>
+  <div class="sd-blog">
+    
+    <a class="sd-entrada" href="como-se-hizo-el-bosque.html"><span>Diario 1</span><h2>Cómo se hizo el bosque</h2><p>Un bosque infinito hecho solo con código, sin una sola foto.</p></a>
+    
+    <a class="sd-entrada" href="tres-horas-del-dia.html"><span>Diario 2</span><h2>Tres horas del día</h2><p>Mañana, tarde y atardecer: el mismo bosque, otra luz.</p></a>
+    
+    <a class="sd-entrada" href="el-oso.html"><span>Diario 3</span><h2>El oso</h2><p>Por qué la caminata tranquila no siempre es tranquila.</p></a>
+    
+  </div>
+</main>
+<footer class="sd-footer">
+  <p>Camina despacio. Y si oyes un rugido, corre.</p>
+  <div>
+    <a class="sd-marca" href="./">Sendero</a>
+    <nav aria-label="Navegación del pie">
+      
+      <a href="./">Caminar</a>
+      
+      <a href="blog.html">Diario</a>
+      
+      <a href="acerca-de.html">Acerca de</a>
+      
+      <a href="contacto.html">Contacto</a>
+      
+    </nav>
+  </div>
+</footer>
+</body>
+</html>

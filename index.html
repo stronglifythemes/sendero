@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="es"><head>
+	
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width"/>
+<meta name="builder" content="Stronglify"/>
+<link rel="icon" type="image/x-icon" href="https://media.stronglify.com/295/favicon-sendero-1795216597.svg"/>
+<title>Sendero · Una caminata por el bosque</title>
+<meta name="description" content="Camina por un bosque infinito en tu navegador: mañana, tarde o atardecer. Pero si oyes un rugido, corre."/>
+<meta name="robots" content="index"/>
+<link rel="canonical" href="https://stronglifythemes.github.io/"/><style>
+html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type=button],[type=reset],[type=submit]{-webkit-appearance:button}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}
+fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}img{max-width:100%;height:auto}
+</style><style>
+:root { --musgo:#1e2b1c; --hoja:#3f6b2d; --helecho:#8fbf6a; --tierra:#9a7a54; --crema:#f3efe4; --serif:"Fraunces",Georgia,serif; --sans:"Work Sans",system-ui,sans-serif; --pad:clamp(1rem,4vw,3rem); }
+*,*::before,*::after { box-sizing:border-box; }
+body.sendero { margin:0; background:var(--musgo); color:var(--crema); font-family:var(--sans); }
+.sendero a { color:inherit; }
+.sd-header { position:sticky; top:0; z-index:20; display:flex; justify-content:space-between; align-items:center; gap:1rem; width:100%; padding:.9rem var(--pad); background:#1e2b1cf0; border-bottom:1px solid #8fbf6a40; }
+.sd-marca { font-family:var(--serif); font-weight:700; font-size:1.6rem; letter-spacing:-.02em; text-decoration:none; color:var(--helecho); }
+.sd-header nav, .sd-footer nav { display:flex; flex-wrap:wrap; gap:clamp(.8rem,2.5vw,1.8rem); }
+.sd-header nav a, .sd-footer nav a { text-decoration:none; font-weight:600; }
+.sd-header nav a:hover, .sd-footer nav a:hover { color:var(--helecho); }
+.sd-solo { margin:0; }
+.sd-escena { position:relative; width:100%; height:calc(100svh - 3.9rem); background:#000; overflow:hidden; }
+.sd-escena canvas { display:block; width:100%; height:100%; object-fit:cover; cursor:crosshair; outline:none; }
+.sd-escena canvas:focus-visible { box-shadow:inset 0 0 0 3px var(--helecho); }
+.sd-panel { position:absolute; top:.9rem; right:.9rem; z-index:3; display:flex; flex-wrap:wrap; gap:.5rem; justify-content:flex-end; }
+.sd-horas { display:flex; }
+.sd-panel button { font:600 .85rem var(--sans); color:var(--crema); background:#1e2b1ccc; border:1px solid #8fbf6a66; padding:.5rem .85rem; cursor:pointer; backdrop-filter:blur(4px); }
+.sd-horas button + button { border-left:0; }
+.sd-panel button[aria-pressed="true"] { background:var(--helecho); color:var(--musgo); border-color:var(--helecho); }
+.sd-panel button:hover { border-color:var(--helecho); }
+.sd-ayuda { position:absolute; left:.9rem; bottom:.9rem; z-index:3; margin:0; padding:.45rem .8rem; font-size:.85rem; background:#1e2b1cb3; border-radius:.3rem; }
+.sd-tactil { display:none; }
+@media (hover:none) and (pointer:coarse) {
+  .sd-ayuda { display:none; }
+  .sd-tactil { display:block; position:absolute; left:1rem; bottom:1rem; z-index:3; }
+  .sd-stick { width:8.5rem; height:8.5rem; border-radius:50%; border:2px solid var(--helecho); background:radial-gradient(circle,#8fbf6a40 0 30%,transparent 31%); touch-action:none; }
+}
+.sd-footer { padding:clamp(3rem,7vw,5rem) var(--pad) 2rem; background:#141d13; border-top:1px solid #8fbf6a40; }
+.sd-footer p { margin:0 0 2.5rem; max-width:22ch; font-family:var(--serif); font-size:clamp(1.9rem,4.5vw,3.6rem); line-height:1.05; }
+.sd-footer > div { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; padding-top:1.4rem; border-top:1px solid #8fbf6a30; }
+.sd-cabecera { padding:clamp(3rem,8vw,6rem) var(--pad) clamp(2rem,5vw,3rem); }
+.sd-cabecera h1 { margin:0; font-family:var(--serif); font-size:clamp(3rem,10vw,8rem); line-height:.9; color:var(--helecho); }
+.sd-cabecera p { margin:1rem 0 0; max-width:40ch; font-size:clamp(1.1rem,2vw,1.4rem); }
+.sd-blog { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr)); gap:1rem; padding:0 var(--pad) clamp(3rem,8vw,6rem); }
+.sd-entrada { display:grid; gap:.6rem; align-content:start; padding:1.6rem; background:#26361f; border:1px solid #8fbf6a30; text-decoration:none; transition:border-color .2s; }
+.sd-entrada:hover { border-color:var(--helecho); }
+.sd-entrada span { font-size:.85rem; color:var(--tierra); font-weight:600; }
+.sd-entrada h2 { margin:0; font-family:var(--serif); font-size:clamp(1.5rem,2.6vw,2rem); }
+.sd-entrada p { margin:0; line-height:1.55; opacity:.9; }
+.sd-prosa { width:min(calc(100% - 2rem),46rem); margin:0 auto clamp(3rem,8vw,6rem); font-size:clamp(1.05rem,1.6vw,1.2rem); line-height:1.75; }
+.sd-prosa h2 { margin:2rem 0 .5rem; font-family:var(--serif); font-size:clamp(1.7rem,3vw,2.4rem); color:var(--helecho); }
+.sd-blank { min-height:40vh; padding-top:2rem; }
+</style><link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&amp;family=Work+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/></head>
+<body class="sendero">
+  <header class="sd-header">
+  <a class="sd-marca" href="./">Sendero</a>
+  <nav aria-label="Navegación principal">
+    
+    <a href="./">Caminar</a>
+    
+    <a href="blog.html">Diario</a>
+    
+    <a href="acerca-de.html">Acerca de</a>
+    
+    <a href="contacto.html">Contacto</a>
+    
+  </nav>
+</header>
+
+<main class="sd-solo">
+  <section class="sd-escena" aria-label="Caminata por el bosque">
+    <canvas id="sd-bosque" aria-label="Caminata en primera persona por un bosque"></canvas>
+    <div class="sd-panel">
+      <div class="sd-horas" role="group" aria-label="Hora del día">
+        <button type="button" data-sd-hora="manana" aria-pressed="false">Mañana</button>
+        <button type="button" data-sd-hora="tarde" aria-pressed="true">Tarde</button>
+        <button type="button" data-sd-hora="atardecer" aria-pressed="false">Atardecer</button>
+      </div>
+      <button type="button" data-sd-auto="" aria-pressed="false">Caminar solo</button>
+      <button type="button" data-sd-sonido="">Sonido: sí</button>
+    </div>
+    <p class="sd-ayuda">W A S D para caminar · mouse o flechas para mirar · Shift para correr · haz clic para empezar</p>
+    <div class="sd-tactil" aria-hidden="true"><div class="sd-stick" data-sd-mover=""></div></div>
+  </section>
+</main>
+<script>
+(() => {
+  const lienzo = document.getElementById('sd-bosque');
+  if (!lienzo) return;
+  const W = 640, H = 360, FOCO = 330, OJO = 1.65;
+  lienzo.width = W; lienzo.height = H;
+  const ctx = lienzo.getContext('2d');
+
+  
+  const HORAS = {
+    manana: { cielo: ['#9fd3f0', '#e8f4ea'], niebla: [214, 232, 222], pasto: ['#6f9b4c', '#3f6b2d'], camino: [150, 120, 84], luz: 1, sol: [255, 248, 220], luciernagas: false },
+    tarde: { cielo: ['#6fb3e0', '#dff0e4'], niebla: [196, 222, 206], pasto: ['#7aa84e', '#466f2c'], camino: [158, 126, 86], luz: 1.05, sol: [255, 255, 235], luciernagas: false },
+    atardecer: { cielo: ['#2b2f5c', '#f2a65a'], niebla: [214, 150, 112], pasto: ['#4f6a3a', '#22351d'], camino: [120, 86, 60], luz: .72, sol: [255, 190, 120], luciernagas: true }
+  };
+  let hora = HORAS.tarde;
+
+  
+  const hash = (x, z) => { let h = (x * 374761393 + z * 668265263) | 0; h = (h ^ (h >>> 13)) * 1274126177 | 0; return ((h ^ (h >>> 16)) >>> 0) / 4294967295; };
+  const caminoX = z => Math.sin(z * .045) * 7 + Math.sin(z * .013) * 12;
+
+  
+  const lienzoNuevo = (w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; };
+  const variantes = [];
+  const hacer = (w, h, pintar) => {
+    const base = lienzoNuevo(w, h); pintar(base.getContext('2d'), w, h);
+    return base;
+  };
+  const pino = (tono) => hacer(96, 192, (g, w, h) => {
+    g.fillStyle = '#4a3324'; g.fillRect(w / 2 - 5, h - 40, 10, 40);
+    for (let i = 0; i < 6; i++) {
+      const y = 18 + i * 26, ancho = 18 + i * 13;
+      g.fillStyle = `hsl(${tono}, 38%, ${18 + i * 2}%)`; g.beginPath(); g.moveTo(w / 2, y - 8); g.lineTo(w / 2 + ancho, y + 34); g.lineTo(w / 2 - ancho, y + 34); g.fill();
+      g.fillStyle = `hsl(${tono}, 42%, ${28 + i * 2}%)`; g.beginPath(); g.moveTo(w / 2, y - 6); g.lineTo(w / 2 - ancho * .9, y + 30); g.lineTo(w / 2 - ancho * .2, y + 30); g.fill();
+    }
+  });
+  const frondoso = (tono) => hacer(128, 160, (g, w, h) => {
+    g.fillStyle = '#5a3d27'; g.fillRect(w / 2 - 6, h - 70, 12, 70); g.fillRect(w / 2 - 2, h - 90, 4, 30);
+    const copas = [[64, 60, 40], [36, 74, 28], [92, 72, 30], [52, 36, 26], [80, 40, 26], [64, 86, 30]];
+    copas.forEach(([x, y, r], i) => { g.fillStyle = `hsl(${tono}, 45%, ${22 + i * 3}%)`; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); });
+    for (let i = 0; i < 40; i++) { g.fillStyle = `hsla(${tono + 10}, 55%, ${38 + (i % 3) * 6}%, .8)`; const a = i * 2.4, r = 10 + (i * 7) % 34; g.beginPath(); g.arc(64 + Math.cos(a) * r, 60 + Math.sin(a) * r * .8, 4 + i % 4, 0, 7); g.fill(); }
+  });
+  const arbusto = hacer(80, 44, (g) => { for (let i = 0; i < 9; i++) { g.fillStyle = `hsl(${100 + i * 3}, 40%, ${20 + i * 3}%)`; g.beginPath(); g.arc(14 + i * 7, 30 - (i % 3) * 5, 14 - (i % 2) * 3, 0, 7); g.fill(); } });
+  const roca = hacer(64, 36, (g) => { g.fillStyle = '#6d6a63'; g.beginPath(); g.ellipse(32, 24, 30, 14, 0, 0, 7); g.fill(); g.fillStyle = '#8c8a83'; g.beginPath(); g.ellipse(26, 18, 18, 8, 0, 0, 7); g.fill(); g.fillStyle = '#5f7a43'; g.fillRect(10, 30, 44, 4); });
+  const flores = hacer(48, 24, (g) => { for (let i = 0; i < 9; i++) { const x = 4 + i * 5, y = 8 + (i * 7) % 12; g.fillStyle = '#3f6b2d'; g.fillRect(x, y, 1, 24 - y); g.fillStyle = ['#ffd6e7', '#fff1a8', '#c9b6ff', '#ffffff'][i % 4]; g.beginPath(); g.arc(x, y, 2.4, 0, 7); g.fill(); } });
+  const helecho = hacer(56, 36, (g) => { for (let i = 0; i < 7; i++) { g.strokeStyle = `hsl(${105 + i * 4}, 45%, ${28 + i * 3}%)`; g.lineWidth = 2; g.beginPath(); g.moveTo(28, 36); g.quadraticCurveTo(28 + (i - 3) * 6, 14, 28 + (i - 3) * 9, 4 + Math.abs(i - 3) * 3); g.stroke(); } });
+  const oso = (fase) => hacer(120, 100, (g) => {
+    const p = Math.sin(fase) * 6;
+    g.fillStyle = '#3b2616';
+    g.beginPath(); g.ellipse(60, 52, 42, 26, 0, 0, 7); g.fill();
+    g.beginPath(); g.ellipse(98, 40, 18, 15, -.2, 0, 7); g.fill();
+    g.beginPath(); g.arc(92, 25, 5, 0, 7); g.arc(106, 27, 5, 0, 7); g.fill();
+    g.fillStyle = '#5a3b22'; g.beginPath(); g.ellipse(112, 46, 7, 5, 0, 0, 7); g.fill();
+    g.fillStyle = '#111'; g.beginPath(); g.arc(116, 45, 2.2, 0, 7); g.fill(); g.beginPath(); g.arc(101, 36, 2, 0, 7); g.fill();
+    g.fillStyle = '#2e1d10'; [[28, p], [46, -p], [74, -p], [90, p]].forEach(([x, d]) => g.fillRect(x - 6 + d, 66, 12, 30));
+    g.fillStyle = '#e8e2d4'; g.fillRect(108, 50, 2, 3); g.fillRect(112, 50, 2, 3);
+  });
+  const OSO = [oso(0), oso(1.6), oso(3.2), oso(4.8)];
+  const siluetas = new Map();
+  const silueta = (img, color) => {
+    const k = color; let m = siluetas.get(img); if (!m) siluetas.set(img, m = {});
+    if (!m[k]) { const c = lienzoNuevo(img.width, img.height), g = c.getContext('2d'); g.drawImage(img, 0, 0); g.globalCompositeOperation = 'source-in'; g.fillStyle = color; g.fillRect(0, 0, c.width, c.height); m[k] = c; }
+    return m[k];
+  };
+  const TIPOS = { pino: [pino(140), pino(150), pino(128)], frondoso: [frondoso(95), frondoso(110), frondoso(80)], arbusto: [arbusto], roca: [roca], flores: [flores], helecho: [helecho] };
+  const ALTO = { pino: 9, frondoso: 7, arbusto: 1.1, roca: .8, flores: .45, helecho: .8 };
+  const ANCHO = { pino: 4.5, frondoso: 5.6, arbusto: 2, roca: 1.4, flores: .9, helecho: 1.4 };
+
+  
+  const CELDA = 3.2, RADIO = 58;
+  const objetoEn = (cx, cz) => {
+    const r = hash(cx, cz), x = (cx + .2 + hash(cz, cx) * .6) * CELDA, z = (cz + .2 + hash(cx + 7, cz - 3) * .6) * CELDA;
+    const lejos = Math.abs(x - caminoX(z));
+    if (lejos < 2.2) return r < .12 ? { tipo: 'flores', x, z, v: 0, s: .8 + hash(cx * 3, cz) * .5 } : null;
+    let tipo = null;
+    if (lejos < 4) tipo = r < .25 ? 'helecho' : r < .45 ? 'flores' : r < .58 ? 'roca' : r < .72 ? 'arbusto' : null;
+    else tipo = r < .34 ? 'pino' : r < .58 ? 'frondoso' : r < .68 ? 'arbusto' : r < .74 ? 'roca' : r < .82 ? 'helecho' : r < .86 ? 'flores' : null;
+    if (!tipo) return null;
+    return { tipo, x, z, v: (hash(cz * 5, cx) * TIPOS[tipo].length) | 0, s: .75 + hash(cx * 11, cz * 13) * .6 };
+  };
+
+  
+  const yo = { x: caminoX(0), z: 0, a: 0, paso: 0, vel: 0 };
+  let auto = false, mudo = false, audio = null, tiempo = 0, previo = performance.now();
+  const oso1 = { activo: false, x: 0, z: 0, dir: 0, paso: 0, vel: 3.5, prox: 40, persigue: 0 };
+  let fase = 'calma', temblor = 0, aviso = '', avisoHasta = 0, latido = 0;
+  const decir = (t, s = 3) => { aviso = t; avisoHasta = tiempo + s; };
+  const teclas = {}; let giro = 0, tactil = { x: 0, y: 0, on: false };
+  const hojas = Array.from({ length: 40 }, (_, i) => ({ x: Math.random() * W, y: Math.random() * H, v: 12 + Math.random() * 20, f: Math.random() * 6, c: ['#c98a3a', '#e0b04a', '#9c5a2a', '#7aa84e'][i % 4] }));
+  const lucis = Array.from({ length: 34 }, () => ({ x: Math.random() * W, y: H * .45 + Math.random() * H * .4, f: Math.random() * 6 }));
+
+  
+  let viento = null;
+  const iniciarAudio = () => {
+    if (audio) return;
+    try { audio = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { audio = null; return; }
+    const n = audio.createBuffer(1, audio.sampleRate * 2, audio.sampleRate), d = n.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    const src = audio.createBufferSource(); src.buffer = n; src.loop = true;
+    const filtro = audio.createBiquadFilter(); filtro.type = 'lowpass'; filtro.frequency.value = 420;
+    viento = audio.createGain(); viento.gain.value = mudo ? 0 : .035;
+    src.connect(filtro).connect(viento).connect(audio.destination); src.start();
+  };
+  const tono = (f1, f2, dur, vol, tipo = 'sine', cuando = 0) => {
+    if (!audio || mudo) return;
+    const o = audio.createOscillator(), g = audio.createGain(), t = audio.currentTime + cuando;
+    o.type = tipo; o.frequency.setValueAtTime(f1, t); o.frequency.exponentialRampToValueAtTime(f2, t + dur);
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + .02); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    o.connect(g).connect(audio.destination); o.start(t); o.stop(t + dur + .05);
+  };
+  const pajaro = () => { const b = 1800 + Math.random() * 1600, n = 2 + (Math.random() * 4 | 0); for (let i = 0; i < n; i++) tono(b, b * (1.15 + Math.random() * .3), .09, .025, 'sine', i * .12); };
+  const rugido = () => { if (!audio || mudo) return; tono(110, 55, 1.2, .14, 'sawtooth'); tono(150, 70, 1, .08, 'square', .05); };
+  const corazon = () => { tono(70, 40, .12, .09, 'sine'); tono(60, 35, .12, .07, 'sine', .18); };
+  const pisada = () => tono(140 + Math.random() * 30, 60, .12, .03, 'triangle');
+
+  
+  const fijarPuntero = () => { try { const r = lienzo.requestPointerLock && lienzo.requestPointerLock(); if (r && r.catch) r.catch(() => {}); } catch (e) {   } };
+  addEventListener('keydown', e => { if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space'].includes(e.code) && document.activeElement === lienzo) e.preventDefault(); teclas[e.code] = true; if (e.code === 'KeyW' || e.code === 'ArrowUp') auto = false; });
+  addEventListener('keyup', e => { teclas[e.code] = false; });
+  lienzo.tabIndex = 0;
+  const reintentar = () => { if (fase !== 'atrapado') return; fase = 'calma'; oso1.activo = false; oso1.prox = 30; yo.x = caminoX(yo.z); decir('Otra vez en el sendero. Atento a los ruidos.', 3); };
+  addEventListener('keydown', e => { if (e.code === 'Enter' || e.code === 'Space') reintentar(); });
+  lienzo.addEventListener('touchstart', reintentar, { passive: true });
+  lienzo.addEventListener('mousedown', () => { reintentar(); iniciarAudio(); lienzo.focus({ preventScroll: true }); if (!('ontouchstart' in window) && document.pointerLockElement !== lienzo) fijarPuntero(); });
+  addEventListener('mousemove', e => { if (document.pointerLockElement === lienzo) giro += e.movementX * .0024; });
+  const q = s => document.querySelector(s);
+  const bAuto = q('[data-sd-auto]'), bSonido = q('[data-sd-sonido]'), zona = q('[data-sd-mover]');
+  if (bAuto) bAuto.addEventListener('click', () => { iniciarAudio(); auto = !auto; bAuto.textContent = auto ? 'Detenerme' : 'Caminar solo'; bAuto.setAttribute('aria-pressed', auto); });
+  if (bSonido) bSonido.addEventListener('click', () => { iniciarAudio(); mudo = !mudo; bSonido.textContent = mudo ? 'Sonido: no' : 'Sonido: sí'; if (viento) viento.gain.value = mudo ? 0 : .035; });
+  document.querySelectorAll('[data-sd-hora]').forEach(b => b.addEventListener('click', () => { hora = HORAS[b.dataset.sdHora] || hora; document.querySelectorAll('[data-sd-hora]').forEach(o => o.setAttribute('aria-pressed', o === b)); }));
+  if (zona) {
+    const pos = e => { const r = zona.getBoundingClientRect(), t = e.touches[0]; tactil.x = Math.max(-1, Math.min(1, (t.clientX - r.left - r.width / 2) / (r.width / 2))); tactil.y = Math.max(-1, Math.min(1, (t.clientY - r.top - r.height / 2) / (r.height / 2))); tactil.on = true; };
+    zona.addEventListener('touchstart', e => { e.preventDefault(); iniciarAudio(); auto = false; pos(e); }, { passive: false });
+    zona.addEventListener('touchmove', e => { e.preventDefault(); pos(e); }, { passive: false });
+    zona.addEventListener('touchend', () => { tactil.on = false; tactil.x = tactil.y = 0; });
+  }
+
+  
+  const choca = (x, z) => {
+    const cx0 = Math.floor(x / CELDA), cz0 = Math.floor(z / CELDA);
+    for (let cx = cx0 - 1; cx <= cx0 + 1; cx++) for (let cz = cz0 - 1; cz <= cz0 + 1; cz++) {
+      const o = objetoEn(cx, cz); if (!o || (o.tipo !== 'pino' && o.tipo !== 'frondoso' && o.tipo !== 'roca')) continue;
+      if (Math.hypot(o.x - x, o.z - z) < (o.tipo === 'roca' ? .9 : .6)) return true;
+    }
+    return false;
+  };
+  const actualizar = dt => {
+    tiempo += dt;
+    if (auto) {
+      const adelante = yo.z + 4, objetivo = Math.atan2(caminoX(adelante) - yo.x, adelante - yo.z);
+      let d = objetivo - yo.a; while (d > Math.PI) d -= Math.PI * 2; while (d < -Math.PI) d += Math.PI * 2;
+      yo.a += d * Math.min(1, dt * 1.6);
+    }
+    yo.a += ((teclas.ArrowRight ? 1 : 0) - (teclas.ArrowLeft ? 1 : 0)) * 1.6 * dt + giro + tactil.x * 1.4 * dt; giro = 0;
+    const av = auto ? 1 : (teclas.KeyW || teclas.ArrowUp ? 1 : 0) - (teclas.KeyS || teclas.ArrowDown ? 1 : 0) - (tactil.on ? tactil.y : 0);
+    const lat = (teclas.KeyD ? 1 : 0) - (teclas.KeyA ? 1 : 0);
+    if (fase === 'atrapado') { yo.vel = 0; return; }
+    const corre = teclas.ShiftLeft || teclas.ShiftRight || (auto && fase === 'oso') || (tactil.on && fase === 'oso');
+    const meta = (Math.hypot(av, lat) ? 1 : 0) * (corre ? 4.7 : auto ? 1.5 : 2.2);
+    yo.vel += (meta - yo.vel) * Math.min(1, dt * 4);
+    const n = Math.hypot(av, lat) || 1, sa = Math.sin(yo.a), ca = Math.cos(yo.a);
+    const dx = (sa * av + ca * lat) / n * yo.vel * dt, dz = (ca * av - sa * lat) / n * yo.vel * dt;
+    if (!choca(yo.x + dx, yo.z)) yo.x += dx;
+    if (!choca(yo.x, yo.z + dz)) yo.z += dz;
+    const antes = Math.floor(yo.paso / Math.PI); yo.paso += yo.vel * dt * 4.2; if (Math.floor(yo.paso / Math.PI) !== antes && yo.vel > .3) pisada();
+    if (fase === 'calma') {
+      if (Math.random() < dt * .35) pajaro();
+      if (yo.vel > .3) oso1.prox -= dt;
+      if (oso1.prox <= 0) {
+        const atras = yo.a + Math.PI + (Math.random() - .5) * .8;
+        oso1.x = yo.x + Math.sin(atras) * 16; oso1.z = yo.z + Math.cos(atras) * 16; oso1.activo = true; oso1.persigue = 0;
+        fase = 'oso'; temblor = 1; rugido(); decir('¡Un oso! ¡CORRE! (Shift para correr)', 4);
+      }
+    } else if (fase === 'oso') {
+      oso1.persigue += dt; latido -= dt; if (latido <= 0) { corazon(); latido = .55; }
+      const dx = yo.x - oso1.x, dz = yo.z - oso1.z, d = Math.hypot(dx, dz);
+      oso1.dir = Math.atan2(dx, dz); oso1.vel = Math.min(4.1, 3.2 + oso1.persigue * .04);
+      oso1.x += dx / d * oso1.vel * dt; oso1.z += dz / d * oso1.vel * dt; oso1.paso += dt * 8;
+      if (d < 1.3) { fase = 'atrapado'; temblor = 1.2; rugido(); auto = false; }
+      else if (d > 34 || oso1.persigue > 28) { fase = 'calma'; oso1.activo = false; oso1.prox = 45 + Math.random() * 30; decir('Lo perdiste. Respira: el bosque vuelve a estar tranquilo.', 4); }
+    }
+    temblor = Math.max(0, temblor - dt);
+  };
+
+  
+  const mezcla = (a, b, t) => `rgb(${a[0] + (b[0] - a[0]) * t | 0},${a[1] + (b[1] - a[1]) * t | 0},${a[2] + (b[2] - a[2]) * t | 0})`;
+  const dibujar = () => {
+    const sacudida = temblor > 0 ? (Math.random() - .5) * 10 * temblor : 0;
+    ctx.setTransform(1, 0, 0, 1, sacudida, sacudida * .6);
+    const bamb = Math.sin(yo.paso) * 2.2 * Math.min(1.6, yo.vel), horiz = H * .46 + bamb;
+    const cielo = ctx.createLinearGradient(0, 0, 0, horiz); cielo.addColorStop(0, hora.cielo[0]); cielo.addColorStop(1, hora.cielo[1]);
+    ctx.fillStyle = cielo; ctx.fillRect(0, 0, W, horiz + 1);
+    
+    const solX = W * .5 + Math.sin(-yo.a + 1.1) * W * 1.2, solY = hora === HORAS.atardecer ? horiz - 18 : H * .12;
+    const halo = ctx.createRadialGradient(solX, solY, 2, solX, solY, 90); halo.addColorStop(0, `rgba(${hora.sol},.95)`); halo.addColorStop(1, `rgba(${hora.sol},0)`);
+    ctx.fillStyle = halo; ctx.fillRect(solX - 90, solY - 90, 180, 180);
+    
+    const suelo = ctx.createLinearGradient(0, horiz, 0, H); suelo.addColorStop(0, mezcla(hora.niebla, [90, 120, 70], .35)); suelo.addColorStop(.25, hora.pasto[0]); suelo.addColorStop(1, hora.pasto[1]);
+    ctx.fillStyle = suelo; ctx.fillRect(0, horiz, W, H - horiz);
+    const sa = Math.sin(yo.a), ca = Math.cos(yo.a);
+    const proyectar = (x, z, y = 0) => { const rx = x - yo.x, rz = z - yo.z, cx = rx * ca - rz * sa, cz = rx * sa + rz * ca; if (cz < .15) return null; return { sx: W / 2 + cx / cz * FOCO, sy: horiz + (OJO - y) / cz * FOCO, d: cz }; };
+    
+    const franjas = [];
+    for (let z1 = Math.floor((yo.z - RADIO) / 1.2) * 1.2; z1 < yo.z + RADIO; z1 += 1.2) {
+      const z2 = z1 + 1.25, a1 = proyectar(caminoX(z1) - 1.3, z1), b1 = proyectar(caminoX(z1) + 1.3, z1), a2 = proyectar(caminoX(z2) - 1.3, z2), b2 = proyectar(caminoX(z2) + 1.3, z2);
+      if (!a1 || !b1 || !a2 || !b2) continue;
+      const d = (a1.d + a2.d) / 2; if (d > RADIO) continue; franjas.push({ a1, b1, a2, b2, d });
+    }
+    franjas.sort((a, b) => b.d - a.d);
+    for (const f of franjas) { ctx.fillStyle = mezcla(hora.camino, hora.niebla, Math.min(1, f.d / RADIO) * .85); ctx.beginPath(); ctx.moveTo(f.a1.sx, f.a1.sy); ctx.lineTo(f.b1.sx, f.b1.sy); ctx.lineTo(f.b2.sx, f.b2.sy); ctx.lineTo(f.a2.sx, f.a2.sy); ctx.fill(); }
+    
+    const lista = [], cx0 = Math.floor(yo.x / CELDA), cz0 = Math.floor(yo.z / CELDA), R = Math.ceil(RADIO / CELDA);
+    for (let cx = cx0 - R; cx <= cx0 + R; cx++) for (let cz = cz0 - R; cz <= cz0 + R; cz++) {
+      const o = objetoEn(cx, cz); if (!o) continue;
+      const p = proyectar(o.x, o.z); if (!p || p.d > RADIO) continue;
+      const alto = ALTO[o.tipo] * o.s / p.d * FOCO, ancho = ANCHO[o.tipo] * o.s / p.d * FOCO;
+      if (p.sx + ancho / 2 < 0 || p.sx - ancho / 2 > W) continue;
+      lista.push({ o, p, alto, ancho });
+    }
+    if (oso1.activo) { const p = proyectar(oso1.x, oso1.z); if (p && p.d < RADIO) { const alto = 2.1 / p.d * FOCO, ancho = 2.6 / p.d * FOCO; lista.push({ o: { tipo: 'oso', x: oso1.x, z: oso1.z }, p, alto, ancho, img: OSO[(oso1.paso | 0) % 4], espejo: Math.sin(oso1.dir - yo.a) < 0 }); } }
+    lista.sort((a, b) => b.p.d - a.p.d);
+    const nieblaColor = `rgb(${hora.niebla})`;
+    for (const { o, p, alto, ancho, img: imgOso, espejo } of lista) {
+      const img = imgOso || TIPOS[o.tipo][o.v], x = p.sx - ancho / 2, y = p.sy - alto;
+      if (espejo) { ctx.save(); ctx.translate(p.sx * 2, 0); ctx.scale(-1, 1); }
+      const vaiven = (o.tipo === 'pino' || o.tipo === 'frondoso') ? Math.sin(tiempo * .8 + o.x) * ancho * .015 : 0;
+      ctx.globalAlpha = 1; ctx.drawImage(img, x + vaiven, y, ancho, alto);
+      const f = Math.min(.92, Math.pow(p.d / RADIO, 1.4) + (1 - hora.luz) * .15);
+      if (f > .04) { ctx.globalAlpha = f; ctx.drawImage(silueta(img, nieblaColor), x + vaiven, y, ancho, alto); }
+      if (espejo) ctx.restore();
+    }
+    ctx.globalAlpha = 1;
+    
+    const velo = ctx.createLinearGradient(0, horiz - 40, 0, horiz + 60); velo.addColorStop(0, `rgba(${hora.niebla},0)`); velo.addColorStop(.5, `rgba(${hora.niebla},.55)`); velo.addColorStop(1, `rgba(${hora.niebla},0)`);
+    ctx.fillStyle = velo; ctx.fillRect(0, horiz - 40, W, 100);
+    
+    if (hora !== HORAS.atardecer) { ctx.globalCompositeOperation = 'lighter'; for (let i = 0; i < 4; i++) { const x = ((i * 190 - yo.a * 300) % (W + 200) + W + 200) % (W + 200) - 100; ctx.fillStyle = `rgba(255,250,215,${.035 + Math.sin(tiempo * .5 + i) * .015})`; ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + 50, 0); ctx.lineTo(x + 170, H); ctx.lineTo(x + 70, H); ctx.fill(); } ctx.globalCompositeOperation = 'source-over'; }
+    
+    for (const h of hojas) { h.y += h.v * .016; h.x += Math.sin(tiempo + h.f) * .5 - giro * 40; if (h.y > H) { h.y = -5; h.x = Math.random() * W; } ctx.fillStyle = h.c; ctx.save(); ctx.translate(h.x, h.y); ctx.rotate(tiempo * 2 + h.f); ctx.fillRect(-3, -1.5, 6, 3); ctx.restore(); }
+    
+    if (hora.luciernagas) { ctx.globalCompositeOperation = 'lighter'; for (const l of lucis) { const a = .4 + Math.sin(tiempo * 3 + l.f) * .4; ctx.fillStyle = `rgba(255,240,140,${a})`; ctx.beginPath(); ctx.arc((l.x + Math.sin(tiempo * .7 + l.f) * 20 + W) % W, l.y + Math.cos(tiempo * .9 + l.f) * 10, 1.8, 0, 7); ctx.fill(); } ctx.globalCompositeOperation = 'source-over'; }
+    if (fase !== 'calma') {
+      const rojo = ctx.createRadialGradient(W / 2, H / 2, H * .25, W / 2, H / 2, W * .65); const pulso = .25 + Math.sin(tiempo * 11) * .08 + (fase === 'atrapado' ? .3 : 0);
+      rojo.addColorStop(0, 'rgba(120,0,0,0)'); rojo.addColorStop(1, `rgba(150,10,10,${pulso})`); ctx.fillStyle = rojo; ctx.fillRect(0, 0, W, H);
+    }
+    if (fase === 'oso') {
+      const d = Math.hypot(yo.x - oso1.x, yo.z - oso1.z);
+      ctx.font = 'bold 34px system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.fillStyle = '#fff'; ctx.shadowColor = '#000'; ctx.shadowBlur = 8;
+      ctx.fillText('¡CORRE!', W / 2, 52); ctx.font = '14px system-ui, sans-serif'; ctx.fillText('El oso está a ' + d.toFixed(0) + ' m · Shift para correr', W / 2, 76); ctx.shadowBlur = 0; ctx.textAlign = 'left';
+    }
+    if (fase === 'atrapado') {
+      ctx.fillStyle = 'rgba(20,6,4,.55)'; ctx.fillRect(0, 0, W, H); ctx.textAlign = 'center'; ctx.fillStyle = '#fff'; ctx.font = 'bold 30px system-ui, sans-serif';
+      ctx.fillText('El oso te alcanzó', W / 2, H / 2 - 6); ctx.font = '14px system-ui, sans-serif'; ctx.fillText('Haz clic, toca o presiona Enter para volver al sendero', W / 2, H / 2 + 22); ctx.textAlign = 'left';
+    }
+    if (aviso && tiempo < avisoHasta && fase !== 'atrapado') { ctx.font = '15px system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.fillStyle = 'rgba(0,0,0,.45)'; const w = ctx.measureText(aviso).width + 28; ctx.fillRect(W / 2 - w / 2, H - 52, w, 28); ctx.fillStyle = '#fff'; ctx.fillText(aviso, W / 2, H - 33); ctx.textAlign = 'left'; }
+    
+    const vin = ctx.createRadialGradient(W / 2, H / 2, H * .35, W / 2, H / 2, W * .7); vin.addColorStop(0, 'rgba(0,0,0,0)'); vin.addColorStop(1, `rgba(0,0,0,${hora === HORAS.atardecer ? .45 : .25})`);
+    ctx.fillStyle = vin; ctx.fillRect(0, 0, W, H);
+  };
+
+  const bucle = ahora => { const dt = Math.min(.05, (ahora - previo) / 1000); previo = ahora; actualizar(dt); dibujar(); requestAnimationFrame(bucle); };
+  requestAnimationFrame(bucle);
+})();
+
+</script>
+</body></html>
